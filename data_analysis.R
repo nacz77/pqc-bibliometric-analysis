@@ -294,7 +294,7 @@ p_annual_total <- ggplot(annual_total,
   geom_smooth(aes(x = as.numeric(factor(Year))),
               method = "loess", span = 0.5, colour = "#C00000",
               linewidth = 0.9, linetype = "solid") +
-  geom_text(aes(label = Publications), vjust = -0.5, size = 3.2,
+  geom_text(aes(label = Publications), vjust = -0.5, size = 4.5,
             fontface = "bold", colour = "grey25") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.12))) +
   labs(
@@ -302,16 +302,16 @@ p_annual_total <- ggplot(annual_total,
     x        = "Year",
     y        = "Number of Publications"
   ) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title    = element_text(face = "bold", size = 13),
+    plot.title    = element_text(face = "bold", size = 18),
     panel.grid.major.x = element_blank(),
     axis.text.x   = element_text(angle = 45, hjust = 1)
   )
 
 dir.create("figures", showWarnings = FALSE)
-ggsave("figures/SQ1_01_annual_total.png",
-       p_annual_total, width = 10, height = 5.5, dpi = 300)
+ggsave("figures/SQ1_01_annual_total.tiff",
+       p_annual_total, width = 10, height = 5.5, dpi = 300, device = "tiff")
 
 # ----------- By Region -----------
 annual_regional <- df %>%
@@ -341,7 +341,7 @@ p_annual_regional <- ggplot(annual_regional,
            colour = "white") +
   geom_text(aes(label = Publications),
             position = position_dodge(width = 0.75),
-            vjust = -0.5, size = 2.8, fontface = "bold") +
+            vjust = -0.5, size = 4.5, fontface = "bold") +
   scale_fill_manual(values = c("Europe" = "#4472C4", "Asia" = "#ED7D31")) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   labs(
@@ -351,16 +351,16 @@ p_annual_regional <- ggplot(annual_regional,
     y = "Number of Publications",
     fill = "Region"
   ) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     legend.position = "top",
     panel.grid.major.x = element_blank(),
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
 
-ggsave("figures/SQ1_02_annual_regional.png",
-       p_annual_regional, width = 11, height = 6, dpi = 300)
+ggsave("figures/SQ1_02_annual_regional.tiff",
+       p_annual_regional, width = 11, height = 6, dpi = 300, device = "tiff")
 
 
 #################### CUMULATIVE PUBLICATION GROWTH BY REGION ###################
@@ -396,9 +396,9 @@ p_cumulative <- ggplot(annual_regional_cum,
     y = "Cumulative Publications",
     colour = "Region"
   ) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     legend.position = "top",
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
@@ -418,13 +418,13 @@ if (nrow(crossover) > 0) {
       y = max(annual_regional_cum$Cumulative) * 0.5,
       label = paste0("Asia overtakes Europe\n(", crossover$Year[1], ")"),
       hjust = 0,
-      size = 3.2,
+      size = 4.5,
       colour = "grey30"
     )
 }
 
-ggsave("figures/SQ1_03_cumulative.png",
-       p_cumulative, width = 10, height = 5.5, dpi = 300)
+ggsave("figures/SQ1_03_cumulative.tiff",
+       p_cumulative, width = 10, height = 5.5, dpi = 300, device = "tiff")
 
 
 ########################### COUNTRY-WISE DISTRIBUTION ########################## 
@@ -448,7 +448,7 @@ p_top_countries_regional <- ggplot(country_regional,
                                      y = Publications,
                                      fill = country_region)) +
   geom_col(show.legend = FALSE, colour = "white") +
-  geom_text(aes(label = Publications), hjust = -0.2, size = 3) +
+  geom_text(aes(label = Publications), hjust = -0.2, size = 4.5) +
   coord_flip() +
   facet_wrap(~country_region, scales = "free_y") +
   scale_fill_manual(values = c("Europe" = "#4472C4", "Asia" = "#ED7D31")) +
@@ -458,15 +458,15 @@ p_top_countries_regional <- ggplot(country_regional,
     x = NULL,
     y = "Number of Publications"
   ) +
-  theme_minimal(base_size = 11) +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
+    strip.text = element_text(face = "bold", size = 18)
   )
 
-ggsave("figures/SQ1_04_top_countries_regional.png",
-       p_top_countries_regional, width = 12, height = 6, dpi = 300)
+ggsave("figures/SQ1_04_top_countries_regional.tiff",
+       p_top_countries_regional, width = 12, height = 6, dpi = 300, device = "tiff")
 
 
 
@@ -510,7 +510,7 @@ p_authors <- ggplot(top_authors,
                         y = Publications,
                         fill = Region)) +
   geom_col(show.legend = FALSE) +
-  geom_text(aes(label = Publications), hjust = -0.2, size = 3) +
+  geom_text(aes(label = Publications), hjust = -0.2, size = 4.5) +
   coord_flip() +
   facet_wrap(~Region, scales = "free") +
   scale_x_reordered() +
@@ -521,15 +521,15 @@ p_authors <- ggplot(top_authors,
     x     = NULL,
     y     = "Number of Publications"
   ) +
-  theme_minimal() +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
+    strip.text = element_text(face = "bold", size = 18)
   )
 
-ggsave("figures/SQ2_01_top_authors_regional.png",
-       p_authors, width = 12, height = 6, dpi = 300)
+ggsave("figures/SQ2_01_top_authors_regional.tiff",
+       p_authors, width = 12, height = 6, dpi = 300, device = "tiff")
 
 
 ########################## TOP INSTITUTIONS BY REGION ##########################
@@ -593,14 +593,17 @@ top_institutions <- institution_counts %>%
   ungroup() %>%
   rename(Region = region)
 
+top_institutions <- top_institutions %>%
+  mutate(institution = str_wrap(institution, width = 20))
+
 p_institutions <- ggplot(top_institutions,
                          aes(x = reorder_within(institution, Publications, Region),
                              y = Publications,
                              fill = Region)) +
   geom_col(show.legend = FALSE) +
-  geom_text(aes(label = Publications), hjust = -0.2, size = 3) +
+  geom_text(aes(label = Publications), hjust = -0.2, size = 4.5) +
   coord_flip() +
-  facet_wrap(~Region, scales = "free") +
+  facet_wrap(~Region, scales = "free_y") +
   scale_x_reordered() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
   scale_fill_manual(values = c("Europe" = "#4472C4", "Asia" = "#ED7D31")) +
@@ -609,27 +612,28 @@ p_institutions <- ggplot(top_institutions,
     x     = NULL,
     y     = "Number of Publications"
   ) +
-  theme_minimal() +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
+    strip.text = element_text(face = "bold", size = 18),
+    axis.text.y = element_text(lineheight = 0.85, size = 14)
   )
 
-ggsave("figures/SQ2_02_top_institutions_regional.png",
-       p_institutions, width = 12, height = 6, dpi = 300)
+ggsave("figures/SQ2_02_top_institutions_regional.tiff",
+       p_institutions, width = 12, height = 10, dpi = 300, device = "tiff")
 
 
 ######################## CO-AUTHORSHIP NETWORK BY REGION #######################
 
-# see Appendix 1
+# was not included in the paper
 # Europe co-authorship network
 NetMatrix_europe <- biblioNetwork(df_europe,
                                   analysis   = "collaboration",
                                   network    = "authors",
                                   sep        = ";")
 
-png("figures/SQ2_03_coauthorship_network_europe.png",
+tiff("figures/SQ2_03_coauthorship_network_europe.tiff",
     width = 1200, height = 1000, res = 150, bg = "white")
 networkPlot(NetMatrix_europe,
             n             = 50,
@@ -644,7 +648,7 @@ NetMatrix_asia <- biblioNetwork(df_asia,
                                 network  = "authors",
                                 sep      = ";")
 
-png("figures/SQ2_03_coauthorship_network_asia.png",
+tiff("figures/SQ2_03_coauthorship_network_asia.tiff",
     width = 1200, height = 1000, res = 150, bg = "white")
 networkPlot(NetMatrix_asia,
             n             = 50,
@@ -761,14 +765,16 @@ p_country_map <- ggplot() +
   ) +
   theme_void() +
   theme(
-    plot.title = element_text(face = "bold", size = 13),
+    plot.title = element_text(face = "bold", size = 18),
     legend.position = "bottom",
+    legend.title = element_text(size = 16, face = "bold"),
+    legend.text  = element_text(size = 14),
     panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
+    strip.text = element_text(face = "bold", size = 18)
   )
 
-ggsave("figures/SQ2_04_country_collaboration_map_global.png",
-       p_country_map, width = 12, height = 7, dpi = 300, bg = "white")
+ggsave("figures/SQ2_04_country_collaboration_map_global.tiff",
+       p_country_map, width = 12, height = 7, dpi = 300, bg = "white", device = "tiff")
 
 
 
@@ -800,7 +806,7 @@ get_keyword_freq <- function(data) {
 # Europe
 freq_europe <- get_keyword_freq(df_europe)
 
-png("figures/SQ3_01_wordcloud_europe.png",
+tiff("figures/SQ3_01_wordcloud_europe.tiff",
     width = 1200, height = 900, res = 150, bg = "white")
 wordcloud(
   words  = freq_europe$keyword,
@@ -817,7 +823,7 @@ dev.off()
 # Asia
 freq_asia <- get_keyword_freq(df_asia)
 
-png("figures/SQ3_01_wordcloud_asia.png",
+tiff("figures/SQ3_01_wordcloud_asia.tiff",
     width = 1200, height = 900, res = 150, bg = "white")
 wordcloud(
   words  = freq_asia$keyword,
@@ -846,14 +852,14 @@ thematicMap(
   repel = TRUE
 )
 
-png("figures/SQ3_02_thematic_map_europe.png", width = 1200, height = 900, res = 150)
+tiff("figures/SQ3_02_thematic_map_europe.tiff", width = 1200, height = 900, res = 150)
 thematicMap(
   df_europe,
   field = "DE",
   n = 250,
   minfreq = 3,
   stemming = FALSE,
-  size = 0.5,
+  size = 0.8,
   n.labels = 3,
   repel = TRUE
 )
@@ -871,14 +877,14 @@ thematicMap(
   repel = TRUE
 )
 
-png("figures/SQ3_02_thematic_map_asia.png", width = 1200, height = 900, res = 150)
+tiff("figures/SQ3_02_thematic_map_asia.tiff", width = 1200, height = 900, res = 150)
 thematicMap(
   df_asia,
   field = "DE",
   n = 250,
   minfreq = 3,
   stemming = FALSE,
-  size = 0.5,
+  size = 0.8,
   n.labels = 3,
   repel = TRUE
 )
@@ -983,13 +989,13 @@ p_pqc_trends <- ggplot(
     y        = "Number of Publications",
     colour   = "PQC approach"
   ) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 16) +
   theme(
-    plot.title      = element_text(face = "bold", size = 13),
+    plot.title      = element_text(face = "bold", size = 18),
     legend.position = "bottom",
     axis.text.x     = element_text(angle = 45, hjust = 1),
-    strip.text      = element_text(face = "bold", size = 14)
+    strip.text      = element_text(face = "bold", size = 18)
   )
 
-ggsave("figures/SQ3_03_pqc_approaches_over_time.png",
-       p_pqc_trends, width = 13, height = 7, dpi = 300, bg = "white")
+ggsave("figures/SQ3_03_pqc_approaches_over_time.tiff",
+       p_pqc_trends, width = 13, height = 7, dpi = 300, bg = "white", device = "tiff")
